@@ -1,2 +1,2 @@
 # notecode
-A note taking app in react
+A note taking app using react, express, and mongodb

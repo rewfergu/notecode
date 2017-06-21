@@ -1,0 +1,13 @@
+$bg: #3e515f;
+$font-size: 16px;
+$text-color: white;
+$text-color-dark: #272727;
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:400,400i,900,900i');
+$font-family-regular: 'Roboto', sans-serif;
+$font-family-slab: 'Roboto Slab', serif;
+$font-family-mono: 'Roboto Mono', monospace;
+
+@mixin button {
+  font-size: $font-size;
+}

@@ -1,0 +1,73 @@
+aside {
+  min-width: 200px;
+  padding: 20px;
+  border-right: 1px solid rgba(0,0,0,0.3);
+  font-size: 16px;
+  color: $text-color;
+  background: rgba(0,0,0,0.07);
+
+  button {
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: $font-size;
+    color: $text-color;
+    padding: 4px 11px 4px 11px;
+    &:hover {
+      background: rgba(0,0,0,0.1);
+    }
+  }
+
+  .sidebar__noteMenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar__submenu {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+  }
+
+  .sidebar__groupHeading {
+    & > button {
+      border-bottom: 1px dashed #48545D;
+      padding-left: 0;
+      color: rgba(255, 255, 255, 0.5);
+      &:before {
+        display: inline-block;
+        //content: url('data:image/svg+xml;utf8,<svg width="8" height="6" viewBox="0 0 8 6" xmlns="http://www.w3.org/2000/svg"><path d="M4.364 5.714L0 0h8" fill="#D8D8D8" fill-rule="evenodd"/></svg>');
+        content: '';
+        margin-right: 6px;
+        width: 0;
+        height: 0;
+        border: 6px solid #D8D8D8;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+        position: relative;
+        top: 0px;
+        transform: rotate(-90deg);
+      }
+      & + .sidebar__submenu  {
+        display: none;
+      }
+    }
+
+    & > button.active {
+      color: white;
+      &:before {
+        transform: rotate(0);
+        top: 4px;
+      }
+      & + .sidebar__submenu  {
+        display: block;
+      }
+    }
+  }
+
+  
+}

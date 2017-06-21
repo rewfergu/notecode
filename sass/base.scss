@@ -1,0 +1,52 @@
+body {
+  font-family: $font-family-regular;
+  background: $bg;
+  padding: 0;
+  margin: 0;
+  font-size: $font-size;
+}
+
+.app__title {
+  font-size: 18px;
+  padding: 20px;
+  margin: 0;
+  background: rgba(0,0,0,0.3);
+  color: $text-color;
+}
+
+.wrapper {
+  display: flex;
+  height: calc(100vh - 61px);
+}
+
+main {
+  width: 100%;
+  padding: 20px;
+  background: #364753;
+}
+
+.note__date {
+  margin: 0;
+  padding: 2px 8px;
+  font-size: 14px;
+  font-style: italic;
+  color: #516a7d;
+}
+
+.note__actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.note__save, 
+.note__delete {
+  font-size: $font-size;
+  background: rgba(0,0,0,0.1);
+  color: white;
+  padding: 5px 10px;
+  border: none;
+}
+
+.note__save.alert {
+  background: #da673b;
+}

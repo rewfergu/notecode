@@ -1,0 +1,35 @@
+.note__titleForm {
+  margin-bottom: 1em;
+  .note__titleField {
+    border: none;
+    border-bottom: 2px solid #516a7d;
+    padding: 4px 8px 2px;
+    font-size: 18px;
+    width: 100%;
+    box-sizing: border-box;
+    color: white;
+    background: transparent;
+    transition: background 0.3s ease;
+    &:focus {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.46);
+    }
+  }
+  button {
+    @include button;
+    padding: 10px;
+    background: none;
+    border: none;
+  }
+  svg {
+    max-height: 20px;
+  }
+}
+
+.note__titleDisplay {
+  button {
+    @include button;
+  }
+}
