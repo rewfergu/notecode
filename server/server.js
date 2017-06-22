@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const Note = require('./db');
+const Note = require('./db.config');
+const path = require('path');
 
 /*
  * Setup Server
@@ -9,7 +10,7 @@ const Note = require('./db');
 
 const app = express();
 
-app.use(express.static('../client'));
+app.use('/', express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
