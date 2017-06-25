@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CM from 'codemirror';
 
+import 'codemirror/keymap/sublime';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/markdown/markdown';
@@ -26,7 +27,9 @@ class CodeMirror extends Component {
     console.log('component mounted');
     this.codeContainer = CM(document.querySelector('#codemirror'), {
       lineNumbers: true,
-      theme: "monokai"
+      lineWrapping: true,
+      keymap: 'sublime',
+      theme: 'monokai'
     });
     this.codeContainer.setValue(this.props.content);
     this.codeContainer.setOption('mode', this.props.mode);

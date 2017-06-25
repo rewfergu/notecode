@@ -12,7 +12,6 @@ class Title extends Component {
   }
 
   updateTitle(e) {
-    console.log('updating title...', this.titleInput);
     this.props.updateTitle(this.titleInput.value);
     this.setState({
       editTitle: false
@@ -23,7 +22,7 @@ class Title extends Component {
   render() {
     return (
       <form className="note__titleForm" onSubmit={ () => false }>
-        <input type="text" placeholder="Title" value={ this.props.text } onChange={ this.updateTitle } className="note__titleField" ref={ (input) => this.titleInput = input } />
+        <input type="text" placeholder="Title" value={ this.props.text } onChange={ this.updateTitle } className="note__titleField" ref={ (input) => {this.titleInput = input }} />
       </form>
       );
   }
@@ -31,13 +30,11 @@ class Title extends Component {
 
 Title.defaultProps = {
   text: '',
-  noteId: '0',
   updateTitle() {}
 }
 
 Title.propTypes = {
   text: PropTypes.string,
-  noteId: PropTypes.string,
   updateTitle: PropTypes.func
 }
 

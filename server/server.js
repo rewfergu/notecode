@@ -127,9 +127,4 @@ app.get('/titles', (req, res) => {
   })
 });
 
-/*
- * Set Port
- * 
- */
-
-app.listen(3000);
+module.exports = app;

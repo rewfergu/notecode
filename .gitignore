@@ -61,3 +61,4 @@ client/js/bundle.js
 server/db.js
 server/db.config.js
 **/**/.DS_Store
+js/__tests__
