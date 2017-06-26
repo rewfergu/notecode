@@ -17,26 +17,22 @@ class CodeMirror extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props);
-
     this.codeContainer = null;
     this.modeSelect = null;
     this.selectMode = this.selectMode.bind(this);
   }
   componentDidMount() {
-    console.log('component mounted');
-    this.codeContainer = CM(document.querySelector('#codemirror'), {
+    this.codeContainer = CM.fromTextArea(this.textarea, {
       lineNumbers: true,
       lineWrapping: true,
       keymap: 'sublime',
-      theme: 'monokai'
+      theme: 'monokai',
+      value: this.props.content,
+      mode: this.props.mode
     });
-    this.codeContainer.setValue(this.props.content);
-    this.codeContainer.setOption('mode', this.props.mode);
     this.codeContainer.on('keyup', () => {
       this.props.updateContent(this.codeContainer.getValue());
     });
-    this.modeSelect = document.querySelector('#modeSelect');
     this.modeSelect.value = this.props.mode;
   }
   componentDidUpdate() {
@@ -53,7 +49,7 @@ class CodeMirror extends Component {
   render() {
     return (
       <div className="note__code">
-        <select name="type" id="modeSelect" className="note__modeSelect" onChange={ this.selectMode }>
+        <select name="type" id="modeSelect" className="note__modeSelect" onChange={ this.selectMode } ref={(select) => { this.modeSelect = select }}>
           <option value="text">text</option>
           <option value="css">css</option>
           <option value="javascript">javascript</option>
@@ -65,7 +61,9 @@ class CodeMirror extends Component {
           <option value="shell">shell</option>
           <option value="sql">sql</option>
         </select>
-        <div id="codemirror" />
+        <form>
+          <textarea id="codemirror" value={this.props.content} readOnly ref={(textarea) => { this.textarea = textarea }} />
+        </form>
       </div>
     )
   }

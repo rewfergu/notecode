@@ -67,7 +67,7 @@ class Tags extends Component {
             <Plus />
           </button>
         </form>
-        <div className="tags" data-test="tagList">
+        <div className="tags">
           {this.props.tags.map(tag =>
             <span className="tag" key={tag}>
               {tag}

@@ -48,7 +48,7 @@ class SideBar extends Component {
                   <ul className="sidebar__submenu">
                     { item[thisKey].map((title) => {
                         return (
-                          <li key={ title[0] }>
+                          <li key={ title[0] } className="sidebar__title">
                             <button id={ title[0] } onClick={ this.selectNote }>
                               { title[1] }
                             </button>

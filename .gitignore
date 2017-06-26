@@ -60,4 +60,5 @@ typings/
 client/js/bundle.js
 server/db.js
 server/db.config.js
+.db
 **/**/.DS_Store
