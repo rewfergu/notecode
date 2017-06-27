@@ -36,7 +36,7 @@ class SideBar extends Component {
     });
 
     return (
-      <aside className="sidebar">
+      <aside className={this.props.expanded ? 'sidebar expanded' : 'sidebar'}>
         <ul className="sidebar__noteMenu">
           { menuArray.map((item) => {
               const thisKey = Object.keys(item)[0];
@@ -60,7 +60,7 @@ class SideBar extends Component {
               )
             }) }
         </ul>
-        <button onClick={ this.props.createNote }>New</button>
+        <button className="sidebar__new" onClick={ this.props.createNote }>New Note</button>
       </aside>
       );
   }
@@ -68,6 +68,7 @@ class SideBar extends Component {
 
 SideBar.defaultProps = {
   titles: [],
+  expanded: false,
   selectNote() {},
   createNote() {}
 }
@@ -75,39 +76,8 @@ SideBar.defaultProps = {
 SideBar.propTypes = {
   titles: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
   selectNote: PropTypes.func,
-  createNote: PropTypes.func
+  createNote: PropTypes.func,
+  expanded: PropTypes.bool
 }
 
 export default SideBar;
-
-
-
-
-
-// componentWillMount() {
-
-// }
-
-// componentDidMount() {
-
-// }
-
-// componentWillReceiveProps(nextProps) {
-
-// }
-
-// shouldComponentUpdate(nextProps, nextState) {
-
-// }
-
-// componentWillUpdate(nextProps, nextState) {
-
-// }
-
-// componentDidUpdate(prevProps, prevState) {
-
-// }
-
-// componentWillUnmount() {
-
-// }

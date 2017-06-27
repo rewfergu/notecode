@@ -7,10 +7,20 @@
 .note__modeSelect {
   margin-bottom: 10px;
   font-size: $font-size;
+  background: #516a7d;
+  color: white;
+  padding: 2px 4px 4px;
+  border: 1px solid #2d3a44;
 }
 
 .CodeMirror {
   margin-bottom: 10px;
   min-height: 100%;
   flex-grow: 1;
+}
+
+.CodeMirror-scroll {
+  overflow: auto !important;
+  height: auto;
+  width: 100%;
 }

@@ -23,11 +23,12 @@ class CodeMirror extends Component {
   }
   componentDidMount() {
     this.codeContainer = CM.fromTextArea(this.textarea, {
+      scrollbarStyle: 'null',
       lineNumbers: true,
       lineWrapping: true,
       keymap: 'sublime',
       theme: 'monokai',
-      viewportMargin: 10,
+      // viewportMargin: 10,
       value: this.props.content,
       mode: this.props.mode
     });

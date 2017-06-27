@@ -8,6 +8,7 @@ import Title from "./components/Title";
 import DateDisplay from "./components/Date";
 import Tags from "./components/Tags";
 import CodeMirror from "./components/CodeMirror";
+import Hamburger from "./svg/hamburger";
 import API from "./API";
 
 import "../sass/style.scss";
@@ -32,7 +33,8 @@ class NoteCode extends Component {
       mode: "text",
       tags: [],
       content: "",
-      save: false
+      save: false,
+      sidebar: false
     };
 
     this.updatedContent = "";
@@ -46,6 +48,7 @@ class NoteCode extends Component {
     this.deleteTag = this.deleteTag.bind(this);
     this.updateContent = this.updateContent.bind(this);
     this.updateMode = this.updateMode.bind(this);
+    this.toggleSidebar = this.toggleSidebar.bind(this);
   }
 
   componentWillMount() {
@@ -89,7 +92,8 @@ class NoteCode extends Component {
         date: note.date,
         mode: note.mode,
         tags: note.tags,
-        content: note.content
+        content: note.content,
+        sidebar: false
       });
       this.saveBtn.classList.remove("alert");
       this.updatedContent = note.content;
@@ -160,12 +164,12 @@ class NoteCode extends Component {
   }
 
   addTag(tags) {
-    this.setState({tags});
+    this.setState({ tags });
     this.saveBtn.classList.add("alert");
   }
 
   deleteTag(tags) {
-    this.setState({tags});
+    this.setState({ tags });
     this.saveBtn.classList.add("alert");
   }
 
@@ -182,47 +186,62 @@ class NoteCode extends Component {
     this.saveBtn.classList.add("alert");
   }
 
+  toggleSidebar() {
+    this.setState({
+      sidebar: !this.state.sidebar
+    });
+  }
+
   render() {
     return (
-      <div className="wrapper">
-        <SideBar
-          titles={this.state.titles}
-          selectNote={this.selectNote}
-          createNote={this.createNote}
-        />
-        <main>
-          <section className="note">
-            <Title
-              text={this.state.title}
-              noteId={this.state.currentNote}
-              updateTitle={this.updateTitle}
-            />
-            <DateDisplay lastSaved={this.state.date} />
-            <Tags
-              tags={this.state.tags}
-              addTag={this.addTag}
-              deleteTag={this.deleteTag}
-            />
-            <CodeMirror
-              content={this.state.content}
-              mode={this.state.mode}
-              updateContent={this.updateContent}
-              updateMode={this.updateMode}
-            />
-            <div className="note__actions">
-              <button className="note__delete" onClick={this.deleteNote}>
-                Delete Note
-              </button>
-              <button
-                className="note__save"
-                ref={saveBtn => (this.saveBtn = saveBtn)}
-                onClick={this.saveNote}
-              >
-                Save Note
-              </button>
-            </div>
-          </section>
-        </main>
+      <div>
+        <header>
+          <button className="sidebar__toggle" onClick={this.toggleSidebar}>
+            <Hamburger fill="white" />
+          </button>
+          <h1 className="app__title">NoteCode</h1>
+        </header>
+        <div className="wrapper">
+          <SideBar
+            expanded={this.state.sidebar}
+            titles={this.state.titles}
+            selectNote={this.selectNote}
+            createNote={this.createNote}
+          />
+          <main className={this.state.sidebar ? 'expanded' : ''}>
+            <section className="note">
+              <Title
+                text={this.state.title}
+                noteId={this.state.currentNote}
+                updateTitle={this.updateTitle}
+              />
+              <DateDisplay lastSaved={this.state.date} />
+              <Tags
+                tags={this.state.tags}
+                addTag={this.addTag}
+                deleteTag={this.deleteTag}
+              />
+              <CodeMirror
+                content={this.state.content}
+                mode={this.state.mode}
+                updateContent={this.updateContent}
+                updateMode={this.updateMode}
+              />
+              <div className="note__actions">
+                <button className="note__delete" onClick={this.deleteNote}>
+                  Delete Note
+                </button>
+                <button
+                  className="note__save"
+                  ref={saveBtn => (this.saveBtn = saveBtn)}
+                  onClick={this.saveNote}
+                >
+                  Save Note
+                </button>
+              </div>
+            </section>
+          </main>
+        </div>
       </div>
     );
   }
