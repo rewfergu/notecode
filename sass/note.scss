@@ -3,3 +3,9 @@
 //   border-radius: 4px;
 //   border: 1px solid #ccc;
 // }
+
+.note {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}

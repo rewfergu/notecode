@@ -27,9 +27,11 @@ class CodeMirror extends Component {
       lineWrapping: true,
       keymap: 'sublime',
       theme: 'monokai',
+      viewportMargin: 10,
       value: this.props.content,
       mode: this.props.mode
     });
+    this.codeContainer.setSize('100%', '100%');
     this.codeContainer.on('keyup', () => {
       this.props.updateContent(this.codeContainer.getValue());
     });
@@ -61,9 +63,7 @@ class CodeMirror extends Component {
           <option value="shell">shell</option>
           <option value="sql">sql</option>
         </select>
-        <form>
           <textarea id="codemirror" value={this.props.content} readOnly ref={(textarea) => { this.textarea = textarea }} />
-        </form>
       </div>
     )
   }

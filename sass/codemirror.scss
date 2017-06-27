@@ -1,5 +1,7 @@
-.codemirror {
-
+.note__code {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .note__modeSelect {
@@ -9,4 +11,6 @@
 
 .CodeMirror {
   margin-bottom: 10px;
+  min-height: 100%;
+  flex-grow: 1;
 }
