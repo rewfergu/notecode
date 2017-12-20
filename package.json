@@ -52,7 +52,7 @@
     "express": "^4.15.3",
     "keyboardjs": "^2.3.3",
     "mongoose": "^4.10.5",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.7.2",
     "prop-types": "^15.5.10",
     "react": "^15.6.0",
     "react-dom": "^15.6.0",
