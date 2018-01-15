@@ -21,21 +21,30 @@ class Title extends Component {
   }
   render() {
     return (
-      <form className="note__titleForm" onSubmit={ () => false }>
-        <input type="text" placeholder="Title" value={ this.props.text } onChange={ this.updateTitle } className="note__titleField" ref={ (input) => {this.titleInput = input }} />
+      <form className="note__titleForm" onSubmit={() => false}>
+        <input
+          type="text"
+          placeholder="Title"
+          value={this.props.text}
+          onChange={this.updateTitle}
+          className="note__titleField"
+          ref={input => {
+            this.titleInput = input;
+          }}
+        />
       </form>
-      );
+    );
   }
 }
 
 Title.defaultProps = {
   text: '',
   updateTitle() {}
-}
+};
 
 Title.propTypes = {
   text: PropTypes.string,
   updateTitle: PropTypes.func
-}
+};
 
 export default Title;

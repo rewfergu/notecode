@@ -9,6 +9,7 @@ body {
 header {
   background: rgba(0,0,0,0.3);
   display: flex;
+  justify-content: space-between;
   padding: 20px;
 
   button {
@@ -24,10 +25,40 @@ header {
   }
 }
 
+.appInfo {
+  display: flex;
+  align-items: flex-end;
+}
+
 .app__title {
   font-size: 18px;
   margin: 0;
   color: $text-color;
+}
+
+.userInfo {
+  display: flex;
+  align-items: flex-end;
+};
+.userInfo__login,
+.userInfo__logout {
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.1);
+  color: white;
+  padding: 5px 10px;
+  border: none;
+}
+.userInfo__picture {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid rgba(0,0,0,0.3);
+  img {
+    max-width: 100%;
+  }
 }
 
 .wrapper {

@@ -1,24 +1,26 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
-import keyboardJS from "keyboardjs";
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import keyboardJS from 'keyboardjs';
 // 'semantic-ui-react'
 
-import SideBar from "./components/SideBar";
-import Title from "./components/Title";
-import DateDisplay from "./components/Date";
-import Tags from "./components/Tags";
-import CodeMirror from "./components/CodeMirror";
-import Hamburger from "./svg/hamburger";
-import API from "./API";
+import SideBar from './components/SideBar';
+import Title from './components/Title';
+import DateDisplay from './components/Date';
+import User from './components/User';
+import Tags from './components/Tags';
+import CodeMirror from './components/CodeMirror';
+import Hamburger from './svg/hamburger';
+import API from './API';
+// import StitchClient from '../server/db.config';
 
-import "../sass/style.scss";
+import '../sass/style.scss';
 
-keyboardJS.bind("ctrl + s", e => {
-  console.log("we are trying to save");
+keyboardJS.bind('ctrl + s', e => {
+  console.log('we are trying to save');
 });
 
-keyboardJS.bind("s", () => {
-  console.log("s key");
+keyboardJS.bind('s', () => {
+  console.log('s key');
 });
 
 class NoteCode extends Component {
@@ -26,19 +28,20 @@ class NoteCode extends Component {
     super(props);
 
     this.state = {
-      currentNote: "0",
-      title: "",
+      currentNote: '0',
+      title: '',
       titles: [],
-      date: "",
-      mode: "text",
+      date: '',
+      mode: 'text',
       tags: [],
-      content: "",
+      content: '',
       save: false,
       sidebar: false
     };
 
-    this.updatedContent = "";
+    this.updatedContent = '';
 
+    this.authenticate = this.authenticate.bind(this);
     this.createNote = this.createNote.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
     this.selectNote = this.selectNote.bind(this);
@@ -51,17 +54,42 @@ class NoteCode extends Component {
     this.toggleSidebar = this.toggleSidebar.bind(this);
   }
 
-  componentWillMount() {
-    this.loadNotes();
+  componentDidMount() {
+    const _this = this;
+    const auth = API.authenticate();
+
+    // this.authenticate().then(() => {
+    //   console.log('all done authenticating. believe it!');
+    //   _this.loadNotes();
+    // });
+
+    if (auth) {
+      _this.setState({
+        userId: auth
+      });
+
+      _this.loadNotes();
+    }
+  }
+
+  authenticate() {
+    const _this = this;
+    const auth = API.authenticate();
+
+    if (auth) {
+      _this.setState({
+        userId: auth
+      });
+    }
   }
 
   loadNotes() {
     const _this = this;
     const titleArray = [];
 
-    API.getTitles().then(titles => {
+    API.getTitles(this.state.userId).then(titles => {
       titles.forEach(item => {
-        titleArray.push([item._id, item.title, item.mode]);
+        titleArray.push([item._id.toString(), item.title, item.mode]);
       });
       _this.setState({
         titles: titleArray
@@ -71,21 +99,21 @@ class NoteCode extends Component {
 
   createNote() {
     this.setState({
-      currentNote: "0",
-      title: "",
-      date: "",
-      mode: "text",
+      currentNote: '0',
+      title: '',
+      date: '',
+      mode: 'text',
       tags: [],
-      content: "",
+      content: '',
       save: false
     });
 
-    this.updatedContent = "";
+    this.updatedContent = '';
   }
 
   selectNote(id) {
     API.getNote(id).then(note => {
-      console.log("select note", note);
+      console.log('select note', note);
       this.setState({
         currentNote: id,
         title: note.title,
@@ -95,13 +123,14 @@ class NoteCode extends Component {
         content: note.content,
         sidebar: false
       });
-      this.saveBtn.classList.remove("alert");
+      this.saveBtn.classList.remove('alert');
       this.updatedContent = note.content;
     });
   }
 
   saveNote() {
     const data = {
+      owner_id: this.state.userId,
       title: this.state.title,
       mode: this.state.mode,
       tags: this.state.tags,
@@ -109,73 +138,70 @@ class NoteCode extends Component {
       date: new Date()
     };
 
-    if (this.state.currentNote === "0") {
+    if (this.state.currentNote === '0') {
       API.createNote(data).then(note => {
-        console.log("note created", note);
+        console.log('note created', note);
         this.setState({
           currentNote: note._id,
           content: note.content,
           date: note.date
         });
-        this.updatedContent = note.content;
-        this.saveBtn.classList.remove("alert");
+        // this.updatedContent = note.content;
+        this.saveBtn.classList.remove('alert');
         this.loadNotes();
       });
       return;
     }
 
     API.updateNote(this.state.currentNote, data).then(note => {
-      console.log("note content", note.content);
+      console.log('note content', note.content);
       this.setState({
         date: note.date,
         content: note.content
       });
       this.updatedContent = note.content;
       this.loadNotes();
-      this.saveBtn.classList.remove("alert");
+      this.saveBtn.classList.remove('alert');
     });
   }
 
   deleteNote() {
     if (this.state.currentNote !== 0) {
       API.deleteNote(this.state.currentNote).then(response => {
-        console.log("response");
+        console.log('response');
         this.loadNotes();
         this.setState({
-          currentNote: "0",
-          title: "",
+          currentNote: '0',
+          title: '',
           titles: [],
-          date: "",
-          mode: "text",
+          date: '',
+          mode: 'text',
           tags: [],
-          content: ""
+          content: ''
         });
-        this.updatedContent = "";
+        this.updatedContent = '';
       });
     }
   }
 
   updateTitle(title) {
-    console.log("you got it", title);
-    this.setState({
-      title
-    });
-    this.saveBtn.classList.add("alert");
+    this.setState({ title });
+    this.saveBtn.classList.add('alert');
   }
 
   addTag(tags) {
     this.setState({ tags });
-    this.saveBtn.classList.add("alert");
+    this.saveBtn.classList.add('alert');
   }
 
   deleteTag(tags) {
     this.setState({ tags });
-    this.saveBtn.classList.add("alert");
+    this.saveBtn.classList.add('alert');
   }
 
   updateContent(content) {
     this.updatedContent = content;
-    this.saveBtn.classList.add("alert");
+    this.saveBtn.classList.add('alert');
   }
 
   updateMode(mode) {
@@ -183,7 +209,7 @@ class NoteCode extends Component {
       mode,
       content: this.updatedContent
     });
-    this.saveBtn.classList.add("alert");
+    this.saveBtn.classList.add('alert');
   }
 
   toggleSidebar() {
@@ -196,10 +222,14 @@ class NoteCode extends Component {
     return (
       <div>
         <header>
-          <button className="sidebar__toggle" onClick={this.toggleSidebar}>
-            <Hamburger fill="white" />
-          </button>
-          <h1 className="app__title">NoteCode</h1>
+          <div className="appInfo">
+            <button className="sidebar__toggle" onClick={this.toggleSidebar}>
+              <Hamburger fill="white" />
+            </button>
+            <h1 className="app__title">NoteCode</h1>
+          </div>
+
+          <User user={this.state.userId} />
         </header>
         <div className="wrapper">
           <SideBar
@@ -247,4 +277,4 @@ class NoteCode extends Component {
   }
 }
 
-render(<NoteCode />, document.getElementById("noteCode"));
+render(<NoteCode />, document.getElementById('noteCode'));
