@@ -38,12 +38,23 @@ class User extends Component {
       });
     }
   }
+  renderUserAction() {
+    if (this.state.picture) {
+      return (
+        <button className="userInfo__picture" onClick={API.logout}>
+          <img src={this.state.picture} alt="user" />
+        </button>
+      );
+    }
+
+    return (
+      <button className="userInfo__login" onClick={API.login}>Login</button>
+    );
+  }
   render() {
     return (
       <div className="userInfo">
-        <button className="userInfo__picture" onClick={this.checkLogin}>
-          {this.state.picture && <img src={this.state.picture} alt="user" />}
-        </button>
+        {this.renderUserAction()}
       </div>
     );
   }

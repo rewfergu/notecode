@@ -12,7 +12,7 @@ header {
   justify-content: space-between;
   padding: 20px;
 
-  button {
+  .sidebar__toggle {
     display: inline-block;
     margin-right: 10px;
     border: none;
@@ -40,22 +40,28 @@ header {
   display: flex;
   align-items: flex-end;
 };
-.userInfo__login,
-.userInfo__logout {
-  font-size: 16px;
-  background: rgba(0, 0, 0, 0.1);
+.userInfo__login {
+  // font-size: 16px;
+  // background: rgba(0, 0, 0, 0.1);
+  // color: white;
+  // padding: 5px 10px;
+  // border: none;
+  font-size: 14px;
+  background: #516a7d;
   color: white;
-  padding: 5px 10px;
-  border: none;
+  padding: 2px 17px 4px;
+  border: 1px solid #2d3a44;
+  border-radius: 4px;
 }
 .userInfo__picture {
   display: block;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   overflow: hidden;
   background: rgba(0,0,0,0.3);
   border: 2px solid rgba(0,0,0,0.3);
+  padding: 0;
   img {
     max-width: 100%;
   }
@@ -108,7 +114,7 @@ header {
     }
   }
 
-  .sidebar__toggle {
+  header .sidebar__toggle {
     display: none;
   }
 }
