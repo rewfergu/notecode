@@ -99,3 +99,17 @@ module.exports.deleteNote = function(id) {
   console.log('deleting note...');
   return notes.deleteOne({ _id: ObjectId(id) });
 };
+
+module.exports.search = function(term) {
+  // const query = { content: { $in: [new RegExp(term)] } };
+  const query = { title: { $in: [new RegExp('Car', 'i')] } };
+
+  console.log('search query', query);
+  const rx = new RegExp('Car');
+  return notes
+    .find({ title: /home/i }, { _id: 1, title: 1, mode: 1 })
+    .sort({
+      mode: 1
+    })
+    .execute();
+};

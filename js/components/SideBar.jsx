@@ -7,12 +7,21 @@ class SideBar extends Component {
     super(props);
 
     this.selectNote = this.selectNote.bind(this);
+    this.searchNotes = this.searchNotes.bind(this);
   }
   selectNote(e) {
     this.props.selectNote(e.target.id);
   }
   toggleMenuGroup(e) {
     e.target.classList.toggle('active');
+  }
+  searchNotes(e) {
+    console.log('search', e.target.querySelector('#searchTerm').value);
+    API.search(e.target.querySelector('#searchTerm').value).then(data => {
+      console.log('search', data);
+    });
+
+    e.preventDefault();
   }
   render() {
     const menuArray = [];
@@ -37,6 +46,12 @@ class SideBar extends Component {
 
     return (
       <aside className={this.props.expanded ? 'sidebar expanded' : 'sidebar'}>
+        <section className="searchNotes">
+          <form onSubmit={this.searchNotes}>
+            <input type="text" id="searchTerm" />
+            <button type="submit">Search</button>
+          </form>
+        </section>
         <ul className="sidebar__noteMenu">
           {menuArray.map(item => {
             const thisKey = Object.keys(item)[0];
