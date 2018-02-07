@@ -59,6 +59,6 @@ typings/
 
 client/js/bundle.js
 server/db.js
-server/db.config.js
+server/*.config.*
 .db
 **/**/.DS_Store

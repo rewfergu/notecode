@@ -78,3 +78,34 @@ aside {
   border: 1px solid #2d3a44;
   border-radius: 4px;
 }
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  background: hsla(207, 21%, 22%, 1);
+  margin: -20px -20px 20px;
+  padding: 20px;
+}
+
+.userInfo__picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #1f2830;
+  background: #1f2830;
+  margin: auto;
+  overflow: hidden;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.userInfo__username {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.userInfo__logout {
+  text-align: center;
+}

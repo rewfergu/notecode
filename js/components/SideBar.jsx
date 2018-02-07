@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import API from '../API';
+import API from '../../server/db';
 
 class SideBar extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class SideBar extends Component {
     // title[0] = _id
     // title[1] = name
     // title[2] = mode
-    this.props.titles.forEach((item) => {
+    this.props.titles.forEach(item => {
       let currentMode;
 
       if (menuArray.length > 0) {
@@ -37,32 +37,43 @@ class SideBar extends Component {
 
     return (
       <aside className={this.props.expanded ? 'sidebar expanded' : 'sidebar'}>
+        <div className="userInfo">
+          <div className="userInfo__picture">
+            {this.props.picture &&
+              <img src={this.props.picture} alt={this.props.userName} />}
+          </div>
+          <p className="userInfo__username">{this.props.userName}</p>
+
+          <button className="userInfo__logout" onClick={this.props.logout}>
+            Logout
+          </button>
+        </div>
         <ul className="sidebar__noteMenu">
-          { menuArray.map((item) => {
-              const thisKey = Object.keys(item)[0];
-              return (
-                <li key={ thisKey } className="sidebar__groupHeading">
-                  <button onClick={ this.toggleMenuGroup }>
-                    { thisKey }
-                  </button>
-                  <ul className="sidebar__submenu">
-                    { item[thisKey].map((title) => {
-                        return (
-                          <li key={ title[0] } className="sidebar__title">
-                            <button id={ title[0] } onClick={ this.selectNote }>
-                              { title[1] }
-                            </button>
-                          </li>
-                        )
-                      }) }
-                  </ul>
-                </li>
-              )
-            }) }
+          {menuArray.map(item => {
+            const thisKey = Object.keys(item)[0];
+            return (
+              <li key={thisKey} className="sidebar__groupHeading">
+                <button onClick={this.toggleMenuGroup}>
+                  {thisKey}
+                </button>
+                <ul className="sidebar__submenu">
+                  {item[thisKey].map(title =>
+                    <li key={title[0]} className="sidebar__title">
+                      <button id={title[0]} onClick={this.selectNote}>
+                        {title[1]}
+                      </button>
+                    </li>
+                  )}
+                </ul>
+              </li>
+            );
+          })}
         </ul>
-        <button className="sidebar__new" onClick={ this.props.createNote }>New Note</button>
+        <button className="sidebar__new" onClick={this.props.createNote}>
+          New Note
+        </button>
       </aside>
-      );
+    );
   }
 }
 
@@ -71,13 +82,13 @@ SideBar.defaultProps = {
   expanded: false,
   selectNote() {},
   createNote() {}
-}
+};
 
 SideBar.propTypes = {
   titles: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
   selectNote: PropTypes.func,
   createNote: PropTypes.func,
   expanded: PropTypes.bool
-}
+};
 
 export default SideBar;

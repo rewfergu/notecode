@@ -5,7 +5,7 @@ module.exports = {
   entry: './js/App.jsx',
   devtool: 'cheap-eval-source-map',
   output: {
-    path: path.join(__dirname, 'client/js'),
+    path: path.join(__dirname, 'public/js'),
     filename: 'bundle.js'
   },
   devServer: {
@@ -34,17 +34,31 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [{
-          loader: "style-loader" // creates style nodes from JS strings
-        }, {
-          loader: "css-loader", // translates CSS into CommonJS
+        use: [
+          {
+            loader: 'style-loader' // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+            options: {
+              url: true,
+              import: true
+            }
+          },
+          {
+            loader: 'sass-loader' // compiles Sass to CSS
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: {
+          loader: 'css-loader', // translates CSS into CommonJS
           options: {
             url: true,
             import: true
           }
-        }, {
-          loader: "sass-loader" // compiles Sass to CSS
-        }]
+        }
       },
       {
         test: /\.svg$/,

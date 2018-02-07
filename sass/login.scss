@@ -1,0 +1,72 @@
+.login {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.75);
+  z-index: 999;
+  display: none;
+}
+
+.login.active {
+  display: flex;
+}
+
+.login__content {
+  margin: auto;
+  background: hsl(205, 22%, 15%);;
+  padding: 4rem;
+  min-width: 200px;
+}
+
+
+.login__heading {
+  color: white;
+  text-align: center;
+  margin-top: 0;
+}
+// #firebaseui_container {
+//   margin: auto;
+// }
+
+// .firebaseui-container {
+  
+// }
+
+.firebaseui-idp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.firebaseui-idp-button {
+  overflow: hidden;
+  // text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+  background: #516a7d;
+  color: white;
+  padding: 11px 15px 15px;
+  border: 1px solid #2d3a44;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  width: 100%;
+}
+
+.firebaseui-idp-icon {
+  display: block;
+  width: 20px;
+  position: relative;
+  top: 4px;
+  margin-right: 4px;
+}
+
+.firebaseui-idp-text-long {
+  position: absolute;
+  left: 999rem;
+}
+
+.firebaseui-idp-text-short {
+  display: block;
+}
