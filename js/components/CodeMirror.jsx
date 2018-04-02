@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CM from 'codemirror';
 
+import 'codemirror/addon/dialog/dialog';
+import 'codemirror/addon/search/searchcursor'
 import 'codemirror/keymap/sublime';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/javascript/javascript';

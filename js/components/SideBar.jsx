@@ -16,24 +16,35 @@ class SideBar extends Component {
   }
   render() {
     const menuArray = [];
+    // menuArray = [
+    //   {'css': [{}, {}, {}]}
+    // ]
+
     // title[0] = _id
     // title[1] = name
     // title[2] = mode
-    this.props.titles.forEach(item => {
-      let currentMode;
+    this.props.titles.forEach((item, index, arr) => {
+      const currentMode = item[2];
+      let copied = false;
 
-      if (menuArray.length > 0) {
-        currentMode = Object.keys(menuArray[menuArray.length - 1])[0];
-      }
+      menuArray.forEach((menuItem, menuIndex) => {
+        // look up the key for each note group
+        // check if its the same as the current mode we are in
+        const menuItemMode = Object.keys(menuItem)[0];
+        if (menuItemMode === currentMode) {
+          menuArray[menuIndex][menuItemMode].push(item);
+          copied = true;
+        }
+      });
 
-      if (currentMode && currentMode === item[2]) {
-        menuArray[menuArray.length - 1][item[2]].push(item);
-      } else {
-        const obj = {};
-        obj[item[2]] = [item];
-        menuArray.push(obj);
+      if (!copied) {
+        const newMode = {};
+        newMode[currentMode] = [item];
+        menuArray.push(newMode);
       }
     });
+
+    console.log('menu array', menuArray);
 
     return (
       <aside className={this.props.expanded ? 'sidebar expanded' : 'sidebar'}>
@@ -49,7 +60,7 @@ class SideBar extends Component {
           </button>
         </div>
         <ul className="sidebar__noteMenu">
-          {menuArray.map(item => {
+          {menuArray.map((item, i, arr) => {
             const thisKey = Object.keys(item)[0];
             return (
               <li key={thisKey} className="sidebar__groupHeading">

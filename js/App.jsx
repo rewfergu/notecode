@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import keyboardJS from 'keyboardjs';
+// import keyboardJS from 'keyboardjs';
 
 // import firebaseui from 'firebaseui';
 // 'semantic-ui-react'
@@ -19,13 +19,13 @@ import { FirebaseAuth } from 'react-firebaseui';
 import 'firebaseui/dist/firebaseui.css';
 import '../sass/style.scss';
 
-keyboardJS.bind('ctrl + s', e => {
-  console.log('we are trying to save');
-});
+// keyboardJS.bind('ctrl + s', e => {
+//   console.log('we are trying to save');
+// });
 
-keyboardJS.bind('s', () => {
-  console.log('s key');
-});
+// keyboardJS.bind('s', () => {
+//   console.log('s key');
+// });
 
 class NoteCode extends Component {
   constructor(props) {
@@ -88,32 +88,16 @@ class NoteCode extends Component {
   }
 
   componentDidMount() {
-    // const ui = new firebaseui.auth.AuthUI(API.fb.auth());
-    // var uiConfig = {
-    //   callbacks: {
-    //     signInSuccess(currentUser, credential, redirectUrl) {
-    //       // User successfully signed in.
-    //       // Return type determines whether we continue the redirect automatically
-    //       // or whether we leave that to developer to handle.
-    //       return true;
-    //     },
-    //     uiShown() {
-    //       // The widget is rendered.
-    //       // Hide the loader.
-    //       document.getElementById('loader').style.display = 'none';
-    //     }
-    //   },
-    //   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-    //   signInFlow: 'popup',
-    //   signInSuccessUrl: 'localhost:3000',
-    //   signInOptions: [
-    //     // Leave the lines as is for the providers you want to offer your users.
-    //     API.fb.auth.EmailAuthProvider.PROVIDER_ID
-    //   ],
-    //   // Terms of service url.
-    //   tosUrl: 'localhost:3000'
-    // };
-    // ui.start('#firebaseui-auth-container', uiConfig);
+    this.auth.onAuthStateChanged(currentUser => {
+      this.setState({
+        signedIn: true,
+        userId: currentUser.uid,
+        userName: currentUser.displayName,
+        photo: currentUser.photoURL
+      });
+
+      this.loadNotes();
+    });
   }
 
   loadNotes() {
