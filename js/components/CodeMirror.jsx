@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CM from 'codemirror';
 
 import 'codemirror/addon/dialog/dialog';
-import 'codemirror/addon/search/searchcursor'
+import 'codemirror/addon/search/searchcursor';
 import 'codemirror/keymap/sublime';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/javascript/javascript';
@@ -29,7 +29,7 @@ class CodeMirror extends Component {
       lineNumbers: true,
       lineWrapping: true,
       keymap: 'sublime',
-      theme: 'monokai',
+      theme: 'material',
       // viewportMargin: 10,
       value: this.props.content,
       mode: this.props.mode
@@ -54,7 +54,15 @@ class CodeMirror extends Component {
   render() {
     return (
       <div className="note__code">
-        <select name="type" id="modeSelect" className="note__modeSelect" onChange={ this.selectMode } ref={(select) => { this.modeSelect = select }}>
+        <select
+          name="type"
+          id="modeSelect"
+          className="note__modeSelect"
+          onChange={this.selectMode}
+          ref={select => {
+            this.modeSelect = select;
+          }}
+        >
           <option value="text">text</option>
           <option value="css">css</option>
           <option value="javascript">javascript</option>
@@ -66,9 +74,16 @@ class CodeMirror extends Component {
           <option value="shell">shell</option>
           <option value="sql">sql</option>
         </select>
-          <textarea id="codemirror" value={this.props.content} readOnly ref={(textarea) => { this.textarea = textarea }} />
+        <textarea
+          id="codemirror"
+          value={this.props.content}
+          readOnly
+          ref={textarea => {
+            this.textarea = textarea;
+          }}
+        />
       </div>
-    )
+    );
   }
 }
 CodeMirror.defaultProps = {
@@ -76,15 +91,12 @@ CodeMirror.defaultProps = {
   mode: 'text',
   updateContent: null,
   updateMode: null
-}
+};
 CodeMirror.propTypes = {
   content: PropTypes.string,
   mode: PropTypes.string,
   updateContent: PropTypes.func,
   updateMode: PropTypes.func
-}
+};
 
 export default CodeMirror;
-
-
-
